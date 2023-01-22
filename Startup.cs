@@ -41,6 +41,8 @@ public class Startup
             options.Cookie.HttpOnly = true;
             options.Cookie.IsEssential = true;
         });
+
+        
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
