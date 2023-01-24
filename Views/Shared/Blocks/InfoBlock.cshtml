@@ -1,0 +1,7 @@
+@using EPiServer.Core
+
+@model InfoBlock
+
+<div>
+    <p class="@Model.Theme" @Html.EditAttributes(x => x.Text)>@Model.Text</p>
+</div>

@@ -1,10 +1,11 @@
 using Alloy12.Extensions;
 using EPiServer.Cms.Shell;
 using EPiServer.Cms.UI.AspNetIdentity;
+using EPiServer.Personalization;
 using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
-
+using Alloy12.Business.Initialization;
 namespace Alloy12;
 
 public class Startup
@@ -30,7 +31,8 @@ public class Startup
             .AddCms()
             .AddAlloy()
             .AddAdminUserRegistration()
-            .AddEmbeddedLocalization<Startup>();
+            .AddEmbeddedLocalization<Startup>()
+            .AddTransient<IPersonalizationEvaluator, DoNotTrackPersonalizationEvaluator>();
 
         // Required by Wangkanai.Detection
         services.AddDetection();

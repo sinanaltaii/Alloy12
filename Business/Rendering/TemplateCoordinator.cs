@@ -69,6 +69,8 @@ public class TemplateCoordinator : IViewTemplateModelRegistrator
             AvailableWithoutTag = false,
             Path = BlockPath("NoRenderer.cshtml")
         });
+
+        viewTemplateModelRegistrator.Add(typeof(InfoBlock));
     }
 
     private static string BlockPath(string fileName) => $"{BlockFolder}{fileName}";

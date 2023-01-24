@@ -12,11 +12,18 @@ namespace Alloy12.Personalizations.FirstTimeVisitor
     {
         public override bool IsMatch(IPrincipal principal, HttpContext httpContext)
         {
-            var cookieName = httpContext.Request.Cookies[Model.EpiNumberOfVisits];
-            var count = cookieName.Split(',')[0];
-            int.TryParse(count, out var numberOfVisists);
+            bool isMath = false;
 
-            return numberOfVisists == 1;
+            var cookieName = httpContext.Request.Cookies[Model.EpiNumberOfVisits];
+            if (!string.IsNullOrWhiteSpace(cookieName))
+            {
+                var count = cookieName.Split(',')[0];
+                int.TryParse(count, out var numberOfVisists);
+                isMath = numberOfVisists == 1;
+                return isMath;
+            }
+
+            return isMath;
         }
     }
 }
