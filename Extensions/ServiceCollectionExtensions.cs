@@ -1,6 +1,7 @@
 using Alloy12.Business;
 using Alloy12.Business.Channels;
 using Alloy12.Business.Rendering;
+using EPiServer.Cms.TinyMce.Core;
 using EPiServer.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -35,5 +36,21 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IpadHorizontalResolution>();
         services.AddSingleton<IphoneVerticalResolution>();
         services.AddSingleton<AndroidVerticalResolution>();
+    }
+
+    public static IServiceCollection AddTinyMceConfiguration(this IServiceCollection services)
+    {
+        services.Configure<TinyMceConfiguration>(config =>
+        {
+            config
+                .Default()
+                .AddEpiserverSupport()
+                .AppendToolbar("cut pase copy")
+                .AppendToolbar("alignleft aligncenter alignright alignjustify")
+                .AddPlugin("print")
+                .AppendToolbar("print");
+        });
+
+        return services;
     }
 }
