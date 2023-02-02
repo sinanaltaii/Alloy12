@@ -1,0 +1,33 @@
+﻿@model FindSearchPageViewModel
+@{
+	ViewBag.Title = "Search in Alloy";
+	Layout = "~/Views/Shared/Layouts/_TwoPlusOne.cshtml";
+}
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+	<input type="text" tabindex="1" name="q" value="@Model.SearchQuery" />
+	<input type="submit" tabindex="2" class="btn" value="Search" />
+}
+
+@if (Model.Results != null)
+{
+    <p>
+        @Model.CurrentPage.SearchForText <i>@Model.SearchQuery</i>
+        resulted in @Model.Results.Count() hits
+    </p>
+
+    <div class="listResult">
+        <ul>
+			@foreach (var item in Model.Results)
+			{
+			    <li>
+                    <h4>
+                        <a href="@item.Url">@item.Title</a>
+                    </h4>
+					@item.Excerpt
+                </li>
+			}
+        </ul>
+    </div>
+}

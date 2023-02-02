@@ -35,7 +35,8 @@ public class Startup
             .AddAdminUserRegistration()
             .AddEmbeddedLocalization<Startup>()
             .AddTransient<IPersonalizationEvaluator, DoNotTrackPersonalizationEvaluator>()
-            .AddTinyMceConfiguration();
+            .AddTinyMceConfiguration()
+            .AddFind();
 
         // Required by Wangkanai.Detection
         services.AddDetection();

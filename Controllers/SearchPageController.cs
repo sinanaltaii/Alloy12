@@ -12,7 +12,7 @@ public class SearchPageController : PageControllerBase<SearchPage>
         {
             Hits = Enumerable.Empty<SearchContentModel.SearchHit>(),
             NumberOfHits = 0,
-            SearchServiceDisabled = true,
+            SearchServiceDisabled = false,
             SearchedQuery = q
         };
 

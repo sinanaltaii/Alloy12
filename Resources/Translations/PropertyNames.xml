@@ -211,6 +211,13 @@
           </newslist>
         </properties>
       </newspage>
+        <searchPage>
+            <properties>
+                <searchfortext>
+                    <caption>Display text for example "Your search for 'Services'"</caption>
+                </searchfortext>
+            </properties>
+        </searchPage>
     </contenttypes>
   </language>
 </languages>
