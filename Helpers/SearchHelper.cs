@@ -30,6 +30,7 @@ namespace Alloy12.Helpers
             var searchResult = SearchClient.Instance
                 .Search<SitePageData>()
                 .For(query, x => x.Analyzer = Language.English.Analyzer)
+                .Filter(x => x.RolesWithReadAccess().Match("Everyone"))
                 .Track()
                 .StatisticsTrack()
                 .GetContentResult();
