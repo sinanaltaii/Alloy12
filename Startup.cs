@@ -6,6 +6,7 @@ using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using Alloy12.Business.Initialization;
+using Alloy12.Helpers;
 using EPiServer.Cms.TinyMce;
 
 namespace Alloy12;
@@ -37,6 +38,8 @@ public class Startup
             .AddTransient<IPersonalizationEvaluator, DoNotTrackPersonalizationEvaluator>()
             .AddTinyMceConfiguration()
             .AddFind();
+
+        services.AddTransient<ISearchHelper, SearchHelper>();
 
         // Required by Wangkanai.Detection
         services.AddDetection();

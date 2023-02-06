@@ -1,7 +1,17 @@
-﻿@model FindSearchPageViewModel
+﻿@using EPiServer.Cms.Shell
+@using EPiServer.Shell
+@model FindSearchPageViewModel
 @{
 	ViewBag.Title = "Search in Alloy";
-	Layout = "~/Views/Shared/Layouts/_TwoPlusOne.cshtml";
+	Layout = "~/Views/Shared/Layouts/_Root.cshtml";
+    var model = Model.ContentSearchQueryResults;
+    if (Model.ContentSearchQueryResults != null)
+    {
+        foreach (var content in model)
+        {
+            var page = content.ContentLink;
+        }
+    }
 }
 
 @using (Html.BeginForm(FormMethod.Post))
@@ -10,22 +20,41 @@
 	<input type="submit" tabindex="2" class="btn" value="Search" />
 }
 
-@if (Model.Results != null)
+@if (Model.UnifiedSearchQueryResults != null)
 {
     <p>
         @Model.CurrentPage.SearchForText <i>@Model.SearchQuery</i>
-        resulted in @Model.Results.Count() hits
+        resulted in @Model.UnifiedSearchQueryResults.Count() hits
     </p>
 
     <div class="listResult">
         <ul>
-			@foreach (var item in Model.Results)
+			@foreach (var item in Model.UnifiedSearchQueryResults)
 			{
 			    <li>
                     <h4>
                         <a href="@item.Url">@item.Title</a>
                     </h4>
 					@item.Excerpt
+                </li>
+			}
+        </ul>
+    </div>
+}@if (Model.ContentSearchQueryResults != null)
+{
+    <p>
+        @Model.CurrentPage.SearchForText <i>@Model.SearchQuery</i>
+        resulted in @Model.ContentSearchQueryResults.Count() hits
+    </p>
+
+    <div class="listResult">
+        <ul>
+			@foreach (var item in Model.ContentSearchQueryResults)
+			{
+			    <li>
+                    <h4>
+                        <a href="@Url.PageLinkUrl(item.ContentLink)">@item.Name</a>
+                    </h4>
                 </li>
 			}
         </ul>

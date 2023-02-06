@@ -1,18 +1,20 @@
-﻿using Alloy12.Models.Pages;
+﻿using Alloy12.Helpers;
+using Alloy12.Models.Pages;
 using Alloy12.Models.ViewModels;
-using EPiServer.Find;
-using EPiServer.Find.Cms;
-using EPiServer.Find.Framework;
-using EPiServer.Find.Framework.Statistics;
-using EPiServer.Find.Statistics;
 using EPiServer.Framework.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Alloy12.Controllers
 {
-    [TemplateDescriptor(Default = true)]
+    [TemplateDescriptor(Inherited = false)]
     public class FindSearchPageController : PageControllerBase<SearchPage>
     {
+        private readonly ISearchHelper _searchHelper;
+
+        public FindSearchPageController(ISearchHelper searchHelper)
+        {
+            _searchHelper = searchHelper;
+        }
         public ActionResult Index(SearchPage currentPage, string q)
         {
             var model = new FindSearchPageViewModel(currentPage, q);
@@ -20,12 +22,9 @@ namespace Alloy12.Controllers
             {
                 return View(model);
             }
-		 
-		 // Url: https://docs.developers.optimizely.com/digital-experience-platform/v1.1.0-search-and-navigation/docs/search-statistics
-            // what does StatisticsTrack() do? It seems that Track() does just fine.
-            var unifiedSearch = SearchClient.Instance.UnifiedSearchFor(q).Track().StatisticsTrack();
-            model.Results = unifiedSearch.GetResult();
 
+            //model.UnifiedSearchQueryResults = _searchHelper.UnifiedSearchForQuery(q);
+            model.ContentSearchQueryResults = _searchHelper.SearchForContent(q);
             return View(model);
         }
     }
