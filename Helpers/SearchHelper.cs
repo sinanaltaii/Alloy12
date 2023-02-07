@@ -20,7 +20,7 @@ namespace Alloy12.Helpers
                 .Track()
                 .StatisticsTrack();
             var searchResult = unifiedSearch.GetResult();
-
+            
             return searchResult;
         }
 
@@ -30,11 +30,11 @@ namespace Alloy12.Helpers
             var searchResult = SearchClient.Instance
                 .Search<SitePageData>()
                 .For(query, x => x.Analyzer = Language.English.Analyzer)
-                .Filter(x => x.RolesWithReadAccess().Match("Everyone"))
+                .FilterForVisitor() // Group of filters including ExcludeDelete, PublishedInCurrentLanguage, and FilterOnReadAccess https://docs.developers.optimizely.com/digital-experience-platform/v1.1.0-search-and-navigation/docs/filters
                 .Track()
                 .StatisticsTrack()
                 .GetContentResult();
-
+            
             return searchResult;
         }
     }
